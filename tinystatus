@@ -8,6 +8,8 @@ checkfile="${1:-checks.csv}"
 incidentsfile="${2:-incidents.txt}"
 failonoutage=false
 useragent="User-Agent: Mozilla/5.0 (X11; Linux x86_64; Debian) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36"
+telegramBotToken = ""
+telegramChatId = ""
 
 command_exists(){
     if ! command -v "${1}" >/dev/null 2>&1; then
@@ -86,9 +88,11 @@ li { list-style: none; margin-bottom: 2px; padding: 5px; border-bottom: 1px soli
 <div class='container'>
 <h1>${header}</h1>
 EOF
+
 outagenb="$(find "${tmp}/ko" -mindepth 1 | grep -c 'status$')"
 if [ "${outagenb}" -ne 0 ]; then
     echo "<ul><li class='panel failed-bg'>${outagenb} Outage(s)</li></ul>"
+	curl "https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=%e2%9d%97 ${outagenb} Outage(s) detected!" > /dev/null
 else
     echo "<ul><li class='panel success-bg'>All Systems Operational</li></ul>"
 fi
@@ -116,7 +120,7 @@ if [ -f "${incidentsfile}" ]; then
     if [ -s "${incidentsfile}" ]; then
         sed 's|^\(.*\)$|<p>\1</p>|' "${incidentsfile}"
     else
-        echo '<p>No incident reported yet ;)</p>'
+        echo '<p>No incident reported yet &#128516</p>'
     fi
 fi
 cat <<EOF
