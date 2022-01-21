@@ -41,3 +41,9 @@ Command can be:
 There are also `http4`, `http6`, `ping4`, `ping6`, `port4`, `port6` for IPv4 or IPv6 only check.  
 Note: `port4` and `port6` require OpenBSD `nc` binary.
 
+## Telegram outages notification
+
+Open `tinystatus` and set `telegramBotToken` and `telegramChatId`. 
+
+In case of an outage the bot will notify the given chat.
+
