@@ -11,6 +11,7 @@ tinystatus generate an html status page via shell script.
 * Easy configuration and customisation
 * Tiny (~1kb) optimized result page
 * Incident history (manual)
+* Telegram outages notification
 
 ## Demo
 
